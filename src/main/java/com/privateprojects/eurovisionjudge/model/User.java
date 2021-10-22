@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.time.Instant;
 import java.time.LocalDate;
 
-@Table(name = "USER")
+@Entity
 public class User extends AbstractModel {
 
     @Column(name = "FIRST_NAME", nullable = false)
