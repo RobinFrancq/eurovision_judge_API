@@ -25,3 +25,6 @@ hs_err_pid*
 #IntelliJ Hidden Files
 .idea/
 .jpb/
+
+#Build Target Directory
+target/
