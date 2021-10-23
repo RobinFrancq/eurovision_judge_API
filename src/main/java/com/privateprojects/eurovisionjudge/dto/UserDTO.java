@@ -7,15 +7,15 @@ import java.time.Instant;
 import java.time.LocalDate;
 
 public class UserDTO extends AbstractDTO {
-    @JsonView(View.UserCreateView.class)
+    @JsonView(View.UserCreateOrUpdateView.class)
     private String firstName;
-    @JsonView(View.UserCreateView.class)
+    @JsonView(View.UserCreateOrUpdateView.class)
     private String lastName;
-    @JsonView(View.UserCreateView.class)
+    @JsonView(View.UserCreateOrUpdateView.class)
     private LocalDate dateOfBirth;
-    @JsonView(View.UserCreateView.class)
+    @JsonView(View.UserCreateOrUpdateView.class)
     private String email;
-    @JsonView(View.UserCreateView.class)
+    @JsonView(View.UserCreateOrUpdateView.class)
     private String password;
     @JsonView(View.UserFullView.class)
     private Instant createdAt;
