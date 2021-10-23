@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 @Service("userService")
 public class UserService implements IUserService {
@@ -18,8 +19,8 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User findUserByEmail(String email) {
-        return userRepository.findByEmail(email);
+    public Optional<User> findUserByEmail(String email) {
+        return Optional.ofNullable(userRepository.findByEmail(email));
     }
 
     @Override
