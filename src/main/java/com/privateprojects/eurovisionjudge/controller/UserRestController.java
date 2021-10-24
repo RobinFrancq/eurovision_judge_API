@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
 
-@RestController(value = "/user")
+@RestController()
+@RequestMapping(value = "/user")
 public class UserRestController {
 
     private final IUserService userService;
@@ -26,7 +27,7 @@ public class UserRestController {
         this.userConverter = userConverter;
     }
 
-    @GetMapping(value = "/email")
+    @GetMapping()
     @JsonView(View.UserFullView.class)
     public ResponseEntity<UserDTO> getUserByEmail(@RequestParam String email) {
         User foundUser = userService.findUserByEmail(email).orElseThrow(EntityNotFoundException::new);
