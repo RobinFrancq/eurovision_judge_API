@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.privateprojects.eurovisionjudge.converter.IConverter;
 import com.privateprojects.eurovisionjudge.dto.UserDTO;
 import com.privateprojects.eurovisionjudge.exception.responseException.EntityNotFoundException;
-import com.privateprojects.eurovisionjudge.model.User;
+import com.privateprojects.eurovisionjudge.model.entity.User;
 import com.privateprojects.eurovisionjudge.service.IUserService;
 import com.privateprojects.eurovisionjudge.view.View;
 import org.springframework.beans.factory.annotation.Qualifier;

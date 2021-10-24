@@ -1,7 +1,7 @@
 package com.privateprojects.eurovisionjudge.converter.impl;
 
 import com.privateprojects.eurovisionjudge.dto.UserDTO;
-import com.privateprojects.eurovisionjudge.model.User;
+import com.privateprojects.eurovisionjudge.model.entity.User;
 import org.springframework.stereotype.Component;
 
 @Component("userConverter")

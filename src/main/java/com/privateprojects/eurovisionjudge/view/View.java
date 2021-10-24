@@ -4,6 +4,7 @@ public interface View {
     // MAIN
     interface PublicView{}
     // USER
-    interface UserCreateOrUpdateView extends PublicView{}
+    interface UserLoginView extends PublicView{}
+    interface UserCreateOrUpdateView extends UserLoginView{}
     interface UserFullView extends UserCreateOrUpdateView {}
 }

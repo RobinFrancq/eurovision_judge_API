@@ -13,9 +13,9 @@ public class UserDTO extends AbstractDTO {
     private String lastName;
     @JsonView(View.UserCreateOrUpdateView.class)
     private LocalDate dateOfBirth;
-    @JsonView(View.UserCreateOrUpdateView.class)
+    @JsonView({View.UserLoginView.class, View.UserCreateOrUpdateView.class})
     private String email;
-    @JsonView(View.UserCreateOrUpdateView.class)
+    @JsonView({View.UserLoginView.class, View.UserCreateOrUpdateView.class})
     private String password;
     @JsonView(View.UserFullView.class)
     private Instant createdAt;

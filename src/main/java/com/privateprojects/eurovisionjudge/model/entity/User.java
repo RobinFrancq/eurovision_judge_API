@@ -1,11 +1,13 @@
-package com.privateprojects.eurovisionjudge.model;
+package com.privateprojects.eurovisionjudge.model.entity;
+
+import com.privateprojects.eurovisionjudge.enumeration.UserRoleEnum;
 
 import javax.persistence.*;
 import java.time.Instant;
 import java.time.LocalDate;
 
 @Entity
-public class User extends AbstractModel {
+public class User extends AbstractEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,6 +28,9 @@ public class User extends AbstractModel {
 
     @Column(name = "PASSWORD", nullable = false)
     private String password;
+
+    @Column(name = "USER_ROLE", nullable = false)
+    private UserRoleEnum userRole;
 
     @Column(name = "CREATED_AT")
     private Instant createdAt;
@@ -77,5 +82,12 @@ public class User extends AbstractModel {
     }
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+    }
+
+    public UserRoleEnum getUserRole() {
+        return userRole;
+    }
+    public void setUserRole(UserRoleEnum userRole) {
+        this.userRole = userRole;
     }
 }

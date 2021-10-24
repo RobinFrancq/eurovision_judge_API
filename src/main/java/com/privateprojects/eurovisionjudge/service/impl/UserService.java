@@ -1,11 +1,14 @@
 package com.privateprojects.eurovisionjudge.service.impl;
 
+import com.privateprojects.eurovisionjudge.enumeration.UserRoleEnum;
 import com.privateprojects.eurovisionjudge.exception.responseException.EntityAlreadyExistsException;
 import com.privateprojects.eurovisionjudge.exception.responseException.EntityNotFoundException;
-import com.privateprojects.eurovisionjudge.model.User;
+import com.privateprojects.eurovisionjudge.model.entity.User;
+import com.privateprojects.eurovisionjudge.model.security.EurovisionJudgeUserDetails;
 import com.privateprojects.eurovisionjudge.repository.UserRepository;
 import com.privateprojects.eurovisionjudge.service.IUserService;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -15,9 +18,12 @@ import java.util.Optional;
 public class UserService implements IUserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserService(@Qualifier("userRepository") UserRepository userRepository) {
+    public UserService(@Qualifier("userRepository") UserRepository userRepository,
+                       PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -33,7 +39,8 @@ public class UserService implements IUserService {
             newUser.setLastName(lastName);
             newUser.setDateOfBirth(dateOfBirth);
             newUser.setEmail(email);
-            newUser.setPassword(password);
+            newUser.setPassword(this.passwordEncoder.encode(password));
+            newUser.setUserRole(UserRoleEnum.USER);
             return userRepository.save(newUser);
         } else {
             throw new EntityAlreadyExistsException();

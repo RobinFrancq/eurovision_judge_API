@@ -2,12 +2,12 @@ package com.privateprojects.eurovisionjudge.converter.impl;
 
 import com.privateprojects.eurovisionjudge.converter.IConverter;
 import com.privateprojects.eurovisionjudge.dto.AbstractDTO;
-import com.privateprojects.eurovisionjudge.model.AbstractModel;
+import com.privateprojects.eurovisionjudge.model.entity.AbstractEntity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractConverter<ENTITY extends AbstractModel, DTO extends AbstractDTO> implements IConverter<ENTITY, DTO> {
+public abstract class AbstractConverter<ENTITY extends AbstractEntity, DTO extends AbstractDTO> implements IConverter<ENTITY, DTO> {
     @Override
     public DTO toDTO(ENTITY entity) {
         return null;
