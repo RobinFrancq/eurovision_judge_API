@@ -23,13 +23,13 @@ public class AuthenticationService implements IAuthenticationService {
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        return findUserDetailsByEmail(s).orElseThrow(
+        return findUserDetailsByUsername(s).orElseThrow(
                 () -> new UsernameNotFoundException(String.format("Could not find user with email %s", s))
         );
     }
 
-    private Optional<UserDetails> findUserDetailsByEmail(String email) {
-        User foundUser = userRepository.findByEmail(email);
+    private Optional<UserDetails> findUserDetailsByUsername(String username) {
+        User foundUser = userRepository.findByUsername(username);
         if (foundUser != null) {
             return Optional.of(new EurovisionJudgeUserDetails(foundUser));
         } else {

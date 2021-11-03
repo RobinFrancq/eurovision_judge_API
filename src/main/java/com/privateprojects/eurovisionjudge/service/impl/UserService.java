@@ -33,13 +33,13 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public Optional<User> findUserByEmail(String email) {
-        return Optional.ofNullable(userRepository.findByEmail(email));
+    public Optional<User> findUserByUsername(String username) {
+        return Optional.ofNullable(userRepository.findByUsername(username));
     }
     @Override
     public User createUser(String firstName, String lastName, LocalDate dateOfBirth, String email,
                            String username, String password) throws EntityAlreadyExistsException {
-        Optional<User> existingUserOptional = findUserByEmail(email);
+        Optional<User> existingUserOptional = findUserByUsername(username);
         if (existingUserOptional.isEmpty()) {
             User newUser = new User();
             newUser.setFirstName(firstName);

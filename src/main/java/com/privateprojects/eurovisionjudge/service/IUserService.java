@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 public interface IUserService {
-    Optional<User> findUserByEmail(String email);
+    Optional<User> findUserByUsername(String username);
 
     User createUser(String firstName, String lastName, LocalDate dateOfBirth, String email,
                     String username, String password) throws EntityAlreadyExistsException;

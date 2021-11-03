@@ -10,13 +10,13 @@ import com.privateprojects.eurovisionjudge.view.View;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
 
 @RestController()
 @CrossOrigin
-@RequestMapping(value = "/user")
 public class UserRestController {
 
     private final IUserService userService;
@@ -28,11 +28,12 @@ public class UserRestController {
         this.userConverter = userConverter;
     }
 
-    @GetMapping()
+    @PostMapping(value = "/login")
     @JsonView(View.UserFullView.class)
-    public ResponseEntity<UserDTO> getUserByEmail(@RequestParam String email) {
-        User foundUser = userService.findUserByEmail(email).orElseThrow(EntityNotFoundException::new);
-        return new ResponseEntity<>(userConverter.toDTO(foundUser), HttpStatus.FOUND);
+    public ResponseEntity<Boolean> login(@JsonView(View.UserLoginView.class) @RequestBody UserDTO userDTO) {
+        User existingUser = userService.findUserByUsername(userDTO.getUsername()).orElseThrow(EntityNotFoundException::new);
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        return new ResponseEntity<>(passwordEncoder.matches(userDTO.getPassword(), existingUser.getPassword()), HttpStatus.OK);
     }
 
     @PostMapping(value = "/register")
@@ -49,7 +50,14 @@ public class UserRestController {
         return new ResponseEntity<>(userConverter.toDTO(createdUser), HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
+    @GetMapping(value = "/user")
+    @JsonView(View.UserFullView.class)
+    public ResponseEntity<UserDTO> getUserByUsername(@RequestParam String username) {
+        User foundUser = userService.findUserByUsername(username).orElseThrow(EntityNotFoundException::new);
+        return new ResponseEntity<>(userConverter.toDTO(foundUser), HttpStatus.FOUND);
+    }
+
+    @PutMapping("/user/{id}")
     @JsonView(View.UserFullView.class)
     public ResponseEntity<UserDTO> updateUser(@PathParam(value = "id") Integer id,
                                               @JsonView(View.UserCreateOrUpdateView.class) @RequestBody UserDTO userDTO) {
