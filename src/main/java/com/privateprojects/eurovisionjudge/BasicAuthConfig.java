@@ -1,6 +1,6 @@
 package com.privateprojects.eurovisionjudge;
 
-import com.privateprojects.eurovisionjudge.enumeration.UserRoleEnum;
+import com.privateprojects.eurovisionjudge.model.enumeration.UserRoleEnum;
 import com.privateprojects.eurovisionjudge.service.IAuthenticationService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -30,11 +30,14 @@ public class BasicAuthConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/user").hasRole(UserRoleEnum.USER.toString())
-                .antMatchers("/login").hasAnyRole()
-                .antMatchers("/").permitAll()
-                .and().formLogin();
+        http.csrf().disable()
+                .authorizeRequests()
+                .antMatchers("/register").permitAll()
+                .antMatchers("/login").permitAll()
+                .anyRequest()
+                .authenticated()
+                .and()
+                .httpBasic();
     }
 
     @Bean

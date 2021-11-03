@@ -1,5 +1,6 @@
 package com.privateprojects.eurovisionjudge.converter;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface IConverter<ENTITY, DTO> {

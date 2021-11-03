@@ -1,4 +1,4 @@
-package com.privateprojects.eurovisionjudge.dto;
+package com.privateprojects.eurovisionjudge.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.privateprojects.eurovisionjudge.view.View;

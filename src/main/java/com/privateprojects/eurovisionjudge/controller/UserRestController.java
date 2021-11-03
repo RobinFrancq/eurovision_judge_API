@@ -2,8 +2,8 @@ package com.privateprojects.eurovisionjudge.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.privateprojects.eurovisionjudge.converter.IConverter;
-import com.privateprojects.eurovisionjudge.dto.UserDTO;
-import com.privateprojects.eurovisionjudge.exception.responseException.EntityNotFoundException;
+import com.privateprojects.eurovisionjudge.model.dto.UserDTO;
+import com.privateprojects.eurovisionjudge.model.exception.responseException.EntityNotFoundException;
 import com.privateprojects.eurovisionjudge.model.entity.User;
 import com.privateprojects.eurovisionjudge.service.IUserService;
 import com.privateprojects.eurovisionjudge.view.View;
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.websocket.server.PathParam;
 
 @RestController()
+@CrossOrigin
 @RequestMapping(value = "/user")
 public class UserRestController {
 
@@ -34,7 +35,7 @@ public class UserRestController {
         return new ResponseEntity<>(userConverter.toDTO(foundUser), HttpStatus.FOUND);
     }
 
-    @PostMapping()
+    @PostMapping(value = "/register")
     @JsonView(View.UserFullView.class)
     public ResponseEntity<UserDTO> createUser(@JsonView(View.UserCreateOrUpdateView.class) @RequestBody UserDTO userDTO) {
         User createdUser = userService.createUser(
@@ -42,6 +43,7 @@ public class UserRestController {
                 userDTO.getLastName(),
                 userDTO.getDateOfBirth(),
                 userDTO.getEmail(),
+                userDTO.getUsername(),
                 userDTO.getPassword()
         );
         return new ResponseEntity<>(userConverter.toDTO(createdUser), HttpStatus.CREATED);
@@ -57,6 +59,7 @@ public class UserRestController {
                 userDTO.getLastName(),
                 userDTO.getDateOfBirth(),
                 userDTO.getEmail(),
+                userDTO.getUsername(),
                 userDTO.getPassword()
         );
         return new ResponseEntity<>(userConverter.toDTO(updatedUser), HttpStatus.ACCEPTED);

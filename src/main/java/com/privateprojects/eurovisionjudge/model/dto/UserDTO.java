@@ -1,56 +1,45 @@
-package com.privateprojects.eurovisionjudge.model.entity;
+package com.privateprojects.eurovisionjudge.model.dto;
 
-import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.privateprojects.eurovisionjudge.view.View;
+
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-public class User extends AbstractEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID", nullable = false)
-    private Integer id;
-
-    @Column(name = "FIRST_NAME", nullable = false)
+public class UserDTO extends AbstractDTO {
+    @JsonView(View.UserCreateOrUpdateView.class)
     private String firstName;
-
-    @Column(name = "LAST_NAME", nullable = false)
+    @JsonView(View.UserCreateOrUpdateView.class)
     private String lastName;
-
-    @Column(name = "DATE_OF_BIRTH")
+    @JsonView(View.UserCreateOrUpdateView.class)
     private LocalDate dateOfBirth;
-
-    @Column(name = "EMAIL", nullable = false, unique = true)
+    @JsonView({View.UserCreateOrUpdateView.class})
     private String email;
-
-    @Column(name = "USERNAME", nullable = false, unique = true)
+    @JsonView({View.UserLoginView.class, View.UserCreateOrUpdateView.class})
     private String username;
-
-    @Column(name = "PASSWORD", nullable = false)
+    @JsonView({View.UserLoginView.class, View.UserCreateOrUpdateView.class})
     private String password;
+    @JsonView({View.UserFullView.class})
+    private List<RoleDTO> roles;
 
-    @ManyToMany(cascade = { CascadeType.ALL })
-    @JoinTable(
-            name = "USER_ROLE",
-            joinColumns = { @JoinColumn(name = "USER") },
-            inverseJoinColumns = { @JoinColumn(name = "ROLE") }
-    )
-    List<Role> roles = new ArrayList<>();
-
-    public Integer getId() {
-        return id;
+    public UserDTO() {
+        super();
     }
-
-    public void setId(Integer id) {
-        this.id = id;
+    public UserDTO(Integer id, String firstName, String lastName, LocalDate dateOfBirth, String email,
+                   String username, String password, List<RoleDTO> roles) {
+        super(id);
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
+        this.email = email;
+        this.username = username;
+        this.password = password;
+        this.roles = roles;
     }
 
     public String getFirstName() {
         return firstName;
     }
-
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -58,7 +47,6 @@ public class User extends AbstractEntity {
     public String getLastName() {
         return lastName;
     }
-
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
@@ -66,7 +54,6 @@ public class User extends AbstractEntity {
     public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
-
     public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
@@ -74,7 +61,6 @@ public class User extends AbstractEntity {
     public String getEmail() {
         return email;
     }
-
     public void setEmail(String email) {
         this.email = email;
     }
@@ -82,7 +68,6 @@ public class User extends AbstractEntity {
     public String getUsername() {
         return username;
     }
-
     public void setUsername(String username) {
         this.username = username;
     }
@@ -90,16 +75,14 @@ public class User extends AbstractEntity {
     public String getPassword() {
         return password;
     }
-
     public void setPassword(String password) {
         this.password = password;
     }
 
-    public List<Role> getRoles() {
+    public List<RoleDTO> getRoles() {
         return roles;
     }
-
-    public void setRoles(List<Role> roles) {
+    public void setRoles(List<RoleDTO> roles) {
         this.roles = roles;
     }
 }

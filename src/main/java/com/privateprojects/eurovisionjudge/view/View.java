@@ -7,4 +7,6 @@ public interface View {
     interface UserLoginView extends PublicView{}
     interface UserCreateOrUpdateView extends UserLoginView{}
     interface UserFullView extends UserCreateOrUpdateView {}
+    // ROLE
+    interface RoleFullView extends PublicView{}
 }

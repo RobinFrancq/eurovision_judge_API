@@ -1,7 +1,7 @@
 package com.privateprojects.eurovisionjudge.converter.impl;
 
 import com.privateprojects.eurovisionjudge.converter.IConverter;
-import com.privateprojects.eurovisionjudge.dto.AbstractDTO;
+import com.privateprojects.eurovisionjudge.model.dto.AbstractDTO;
 import com.privateprojects.eurovisionjudge.model.entity.AbstractEntity;
 
 import java.util.ArrayList;
