@@ -5,6 +5,7 @@ import com.privateprojects.eurovisionjudge.model.view.View;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 public class UserDTO extends AbstractDTO {
     @JsonView(View.UserCreateOrUpdateView.class)
@@ -20,13 +21,13 @@ public class UserDTO extends AbstractDTO {
     @JsonView({View.UserLoginView.class, View.UserCreateOrUpdateView.class})
     private String password;
     @JsonView({View.UserFullView.class})
-    private List<RoleDTO> roles;
+    private Set<RoleDTO> roles;
 
     public UserDTO() {
         super();
     }
     public UserDTO(Integer id, String firstName, String lastName, LocalDate dateOfBirth, String email,
-                   String username, String password, List<RoleDTO> roles) {
+                   String username, String password, Set<RoleDTO> roles) {
         super(id);
         this.firstName = firstName;
         this.lastName = lastName;
@@ -79,10 +80,10 @@ public class UserDTO extends AbstractDTO {
         this.password = password;
     }
 
-    public List<RoleDTO> getRoles() {
+    public Set<RoleDTO> getRoles() {
         return roles;
     }
-    public void setRoles(List<RoleDTO> roles) {
+    public void setRoles(Set<RoleDTO> roles) {
         this.roles = roles;
     }
 }

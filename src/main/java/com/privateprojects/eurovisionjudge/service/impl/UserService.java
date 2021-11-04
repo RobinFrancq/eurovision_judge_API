@@ -16,6 +16,7 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service("userService")
 public class UserService implements IUserService {
@@ -48,7 +49,7 @@ public class UserService implements IUserService {
             newUser.setEmail(email);
             newUser.setUsername(username);
             newUser.setPassword(this.passwordEncoder.encode(password));
-            newUser.setRoles(List.of(getDefaultRole()));
+            newUser.setRoles(Set.of(getDefaultRole()));
             return userRepository.save(newUser);
         } else {
             throw new EntityAlreadyExistsException();

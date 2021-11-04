@@ -5,7 +5,7 @@ import com.privateprojects.eurovisionjudge.model.enumeration.UserRoleEnum;
 import com.privateprojects.eurovisionjudge.model.view.View;
 
 public class RoleDTO extends AbstractDTO {
-    @JsonView(View.RoleFullView.class)
+    @JsonView({View.RoleFullView.class, View.UserFullView.class})
     private UserRoleEnum name;
 
     public RoleDTO() {

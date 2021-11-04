@@ -14,6 +14,7 @@ public class Role extends AbstractEntity {
     @Column(name = "ID", nullable = false)
     private Integer id;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "NAME", nullable = false, length = 20)
     private UserRoleEnum name;
 

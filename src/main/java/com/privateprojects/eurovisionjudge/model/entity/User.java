@@ -3,7 +3,9 @@ package com.privateprojects.eurovisionjudge.model.entity;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class User extends AbstractEntity {
@@ -31,13 +33,13 @@ public class User extends AbstractEntity {
     @Column(name = "PASSWORD", nullable = false)
     private String password;
 
-    @ManyToMany(cascade = { CascadeType.ALL })
+    @ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
     @JoinTable(
             name = "USER_ROLE",
             joinColumns = { @JoinColumn(name = "USER") },
             inverseJoinColumns = { @JoinColumn(name = "ROLE") }
     )
-    List<Role> roles = new ArrayList<>();
+    Set<Role> roles = new HashSet<>();
 
     public Integer getId() {
         return id;
@@ -95,11 +97,11 @@ public class User extends AbstractEntity {
         this.password = password;
     }
 
-    public List<Role> getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<Role> roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 }
