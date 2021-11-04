@@ -2,7 +2,7 @@ package com.privateprojects.eurovisionjudge.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.privateprojects.eurovisionjudge.model.enumeration.UserRoleEnum;
-import com.privateprojects.eurovisionjudge.view.View;
+import com.privateprojects.eurovisionjudge.model.view.View;
 
 public class RoleDTO extends AbstractDTO {
     @JsonView(View.RoleFullView.class)

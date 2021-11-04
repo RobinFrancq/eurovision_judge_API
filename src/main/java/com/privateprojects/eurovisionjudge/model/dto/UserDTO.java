@@ -1,7 +1,7 @@
 package com.privateprojects.eurovisionjudge.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.privateprojects.eurovisionjudge.view.View;
+import com.privateprojects.eurovisionjudge.model.view.View;
 
 import java.time.LocalDate;
 import java.util.List;

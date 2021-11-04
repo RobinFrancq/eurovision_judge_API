@@ -6,7 +6,7 @@ import com.privateprojects.eurovisionjudge.model.dto.UserDTO;
 import com.privateprojects.eurovisionjudge.model.exception.responseException.EntityNotFoundException;
 import com.privateprojects.eurovisionjudge.model.entity.User;
 import com.privateprojects.eurovisionjudge.service.IUserService;
-import com.privateprojects.eurovisionjudge.view.View;
+import com.privateprojects.eurovisionjudge.model.view.View;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,7 +38,7 @@ public class UserRestController {
 
     @PostMapping(value = "/register")
     @JsonView(View.UserFullView.class)
-    public ResponseEntity<UserDTO> createUser(@JsonView(View.UserCreateOrUpdateView.class) @RequestBody UserDTO userDTO) {
+    public ResponseEntity<UserDTO> register(@JsonView(View.UserCreateOrUpdateView.class) @RequestBody UserDTO userDTO) {
         User createdUser = userService.createUser(
                 userDTO.getFirstName(),
                 userDTO.getLastName(),
@@ -52,7 +52,7 @@ public class UserRestController {
 
     @GetMapping(value = "/user")
     @JsonView(View.UserFullView.class)
-    public ResponseEntity<UserDTO> getUserByUsername(@RequestParam String username) {
+    public ResponseEntity<UserDTO> getUserByUsername(@RequestParam(value = "username") String username) {
         User foundUser = userService.findUserByUsername(username).orElseThrow(EntityNotFoundException::new);
         return new ResponseEntity<>(userConverter.toDTO(foundUser), HttpStatus.FOUND);
     }

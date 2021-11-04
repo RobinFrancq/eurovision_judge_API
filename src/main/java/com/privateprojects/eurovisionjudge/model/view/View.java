@@ -1,4 +1,4 @@
-package com.privateprojects.eurovisionjudge.view;
+package com.privateprojects.eurovisionjudge.model.view;
 
 public interface View {
     // MAIN
