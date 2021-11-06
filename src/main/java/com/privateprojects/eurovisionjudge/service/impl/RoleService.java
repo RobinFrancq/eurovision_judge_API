@@ -25,6 +25,6 @@ public class RoleService implements IRoleService {
 
     @Override
     public Optional<Role> findRoleByName(UserRoleEnum name) {
-        return Optional.ofNullable(roleRepository.findByName(name.toString()));
+        return Optional.ofNullable(roleRepository.findByName(name));
     }
 }

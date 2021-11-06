@@ -37,8 +37,8 @@ public class BasicAuthConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login").permitAll()
                 .anyRequest()
                 .authenticated()
-                .and()
-                .httpBasic();
+                .and().httpBasic()
+                .and().logout();
     }
 
     @Bean
