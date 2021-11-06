@@ -61,6 +61,7 @@ public class UserRestController {
                 userDTO.getUsername(),
                 userDTO.getPassword()
         );
+        this.authenticateUser(userDTO.getUsername(), userDTO.getPassword());
         return new ResponseEntity<>(userConverter.toDTO(createdUser), HttpStatus.CREATED);
     }
 
