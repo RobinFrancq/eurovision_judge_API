@@ -3,7 +3,7 @@ package com.privateprojects.eurovisionjudge.controller;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.privateprojects.eurovisionjudge.converter.IConverter;
 import com.privateprojects.eurovisionjudge.model.dto.UserDTO;
-import com.privateprojects.eurovisionjudge.model.exception.responseException.EntityNotFoundException;
+import com.privateprojects.eurovisionjudge.model.exception.responseException.UserNotFoundException;
 import com.privateprojects.eurovisionjudge.model.entity.User;
 import com.privateprojects.eurovisionjudge.model.exception.responseException.WrongCredentialsException;
 import com.privateprojects.eurovisionjudge.service.IUserService;
@@ -39,12 +39,12 @@ public class UserRestController {
 
     @PostMapping(value = "/login")
     @JsonView(View.UserFullView.class)
-    public ResponseEntity<String> login(@JsonView(View.UserLoginView.class) @RequestBody UserDTO userDTO) {
-        User existingUser = userService.findUserByUsername(userDTO.getUsername()).orElseThrow(EntityNotFoundException::new);
+    public ResponseEntity<Boolean> login(@JsonView(View.UserLoginView.class) @RequestBody UserDTO userDTO) {
+        User existingUser = userService.findUserByUsername(userDTO.getUsername()).orElseThrow(UserNotFoundException::new);
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         if (passwordEncoder.matches(userDTO.getPassword(), existingUser.getPassword())) {
             this.authenticateUser(userDTO.getUsername(), userDTO.getPassword());
-            return new ResponseEntity<>("Logged in", HttpStatus.OK);
+            return new ResponseEntity<>(true, HttpStatus.OK);
         } else {
             throw new WrongCredentialsException();
         }
@@ -68,7 +68,7 @@ public class UserRestController {
     @GetMapping(value = "/user")
     @JsonView(View.UserFullView.class)
     public ResponseEntity<UserDTO> getUserByUsername(@RequestParam(value = "username") String username) {
-        User foundUser = userService.findUserByUsername(username).orElseThrow(EntityNotFoundException::new);
+        User foundUser = userService.findUserByUsername(username).orElseThrow(UserNotFoundException::new);
         return new ResponseEntity<>(userConverter.toDTO(foundUser), HttpStatus.OK);
     }
 

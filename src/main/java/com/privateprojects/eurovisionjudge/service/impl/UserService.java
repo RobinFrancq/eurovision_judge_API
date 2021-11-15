@@ -2,8 +2,8 @@ package com.privateprojects.eurovisionjudge.service.impl;
 
 import com.privateprojects.eurovisionjudge.model.entity.Role;
 import com.privateprojects.eurovisionjudge.model.enumeration.UserRoleEnum;
-import com.privateprojects.eurovisionjudge.model.exception.responseException.EntityAlreadyExistsException;
-import com.privateprojects.eurovisionjudge.model.exception.responseException.EntityNotFoundException;
+import com.privateprojects.eurovisionjudge.model.exception.responseException.UserAlreadyExistsException;
+import com.privateprojects.eurovisionjudge.model.exception.responseException.UserNotFoundException;
 import com.privateprojects.eurovisionjudge.model.entity.User;
 import com.privateprojects.eurovisionjudge.repository.UserRepository;
 import com.privateprojects.eurovisionjudge.service.IRoleService;
@@ -13,8 +13,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -39,7 +37,7 @@ public class UserService implements IUserService {
     }
     @Override
     public User createUser(String firstName, String lastName, LocalDate dateOfBirth, String email,
-                           String username, String password) throws EntityAlreadyExistsException {
+                           String username, String password) throws UserAlreadyExistsException {
         Optional<User> existingUserOptional = findUserByUsername(username);
         if (existingUserOptional.isEmpty()) {
             User newUser = new User();
@@ -52,13 +50,13 @@ public class UserService implements IUserService {
             newUser.setRoles(Set.of(getDefaultRole()));
             return userRepository.save(newUser);
         } else {
-            throw new EntityAlreadyExistsException();
+            throw new UserAlreadyExistsException();
         }
     }
     @Override
     public User updateUser(Integer id, String firstName, String lastName, LocalDate dateOfBirth, String email,
-                           String username, String password) throws EntityNotFoundException {
-        User userToUpdate = userRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+                           String username, String password) throws UserNotFoundException {
+        User userToUpdate = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
         userToUpdate.setFirstName(firstName);
         userToUpdate.setLastName(lastName);
         userToUpdate.setDateOfBirth(dateOfBirth);
@@ -69,6 +67,6 @@ public class UserService implements IUserService {
     }
 
     private Role getDefaultRole() {
-        return roleService.findRoleByName(UserRoleEnum.USER).orElseThrow(EntityNotFoundException::new);
+        return roleService.findRoleByName(UserRoleEnum.USER).orElseThrow(UserNotFoundException::new);
     }
 }
